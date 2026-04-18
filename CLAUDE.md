@@ -35,7 +35,17 @@ Always-loaded in full:
 - `@lies/CLAUDE.md` and every entry file in `lies/`
 - `@truths/CLAUDE.md` and every entry file in `truths/`
 
-### 4. Active project selection + context reload
+### 4. First-Run check
+
+Read `long-term-mem/index.md`. If First-Run Initialization has not been completed (checklist unchecked or marked incomplete):
+
+- **Stop and run the First-Run Interview** before proceeding. The rest of the startup sequence depends on Core memory being seeded.
+- Interview the user across: user profile, preferences, hardware and environment, people and collaborators, priv location (see `plan.md` for the full flow).
+- Draft each `long-term-mem/<topic>.md` and present for approval before writing.
+- Mark complete in `long-term-mem/index.md` so it doesn't re-trigger.
+- Once first-run is done (or was already done), continue to step 5.
+
+### 5. Active project selection + context reload
 
 - Read `short-term-mem/active-project.md` to find the last-active project.
   - **First-run exception:** if the file does not exist, this is a fresh install. Ask the user which project to activate from `projects/`. Create `short-term-mem/active-project.md` with their choice, machine name, and today's date. Commit it immediately.
@@ -43,7 +53,7 @@ Always-loaded in full:
 - Once confirmed, load the active project's `CLAUDE.md` + its enforcement layer the same way.
 - **Context reload:** read Core `short-term-mem/index.md` and the active project's `short-term-mem/index.md`. Summarize any recent entries to the user so they know where things left off. This is the continuity bridge between sessions.
 
-### 5. Codebase CLAUDE.md assimilation (codebase projects only)
+### 6. Codebase CLAUDE.md assimilation (codebase projects only)
 
 When loading a codebase project, check if the project's actual repo has a `CLAUDE.md` at its root:
 
@@ -51,7 +61,7 @@ When loading a codebase project, check if the project's actual repo has a `CLAUD
 - The project repo's CLAUDE.md can stay in place (other contributors may depend on it), but claude-md's project memory becomes the authoritative source for this user.
 - Track what's been assimilated in the project's `short-term-mem/` or `long-term-mem/` so it doesn't re-trigger.
 
-### 6. Lazy-load the rest
+### 7. Lazy-load the rest
 
 Everything inside `long-term-mem/`, `short-term-mem/` (beyond what was loaded for context reload), and `knowledgebase/` is **lazy-loaded** via each folder's `index.md`. Only open individual files when the conversation actually calls for them.
 
@@ -165,7 +175,7 @@ Never write secret values into memory. Ever. Memory is git-synced and must be tr
 
 ## First-run initialization
 
-If Core `long-term-mem/index.md` is empty or nearly empty, trigger the First-Run flow (see `plan.md` for the full flow). Interview the user across: user profile, preferences, hardware and environment, people and collaborators, priv location. Draft each `long-term-mem/<topic>.md` and present for approval before writing. Mark complete with a note in `long-term-mem/index.md` so it doesn't re-trigger.
+Triggered by **step 4** of the startup protocol when `long-term-mem/index.md` indicates first-run has not been completed. See step 4 above and `plan.md` for the full interview flow.
 
 ---
 
