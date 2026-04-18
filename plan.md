@@ -311,6 +311,7 @@ Claude Code's built-in auto-memory (`~/.claude/projects/*/memory/`) runs indepen
 
 - Scan `~/.claude/projects/*/memory/` for `.md` files that aren't the claude-md pointer.
 - If found, show them to the user. Offer to import useful ones into claude-md (usually `short-term-mem/` first).
+- **Also check `MEMORY.md` files** in each project directory — these accumulate content over time and can contain valuable learnings. Proven reference material can go directly to `knowledgebase/`.
 - After import, remove the stray entries — keep only the pointer that says "defer to claude-md."
 - On a new machine where no pointer exists, create one.
 
@@ -341,7 +342,7 @@ When loading a codebase project, check if the project's actual repo has a `CLAUD
 
 - If one exists and hasn't been assimilated yet, read it and offer to import contents into the project's memory in claude-md (rules → `rules/`, known issues → `lies/` or `short-term-mem/`, architecture notes → `long-term-mem/` or `knowledgebase/`).
 - The project repo's CLAUDE.md stays in place (other contributors may depend on it) — claude-md's project memory becomes the authoritative source for this user.
-- Track what's been assimilated so it doesn't re-trigger every session.
+- Track what's been assimilated by creating `short-term-mem/assimilation-tracking.md` in the project's memory. Record what was imported, where it went, and the date. This prevents re-triggering on future sessions.
 
 ### Step 6 — Lazy-load the rest
 

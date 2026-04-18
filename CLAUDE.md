@@ -24,7 +24,8 @@ Check for stray entries in Claude Code's built-in auto-memory (`~/.claude/projec
 
 - Scan for `.md` files that aren't the claude-md pointer.
 - If found, show them to the user. These are memories Claude Code wrote outside the claude-md system.
-- Offer to import useful ones into the appropriate claude-md location (usually `short-term-mem/` for analysis first).
+- **Also check `MEMORY.md` files** in each project's auto-memory directory — these are auto-memory index files that accumulate content over time and can contain valuable learnings worth importing (e.g. key learnings, bug root causes, project context).
+- Offer to import useful content into the appropriate claude-md location: stray files usually go to `short-term-mem/` for review first; `MEMORY.md` content that's proven reference material can go directly to `knowledgebase/`.
 - After import, remove the stray entries — keep only the pointer that says "defer to claude-md."
 - On a brand-new machine where no pointer exists yet, create one.
 
@@ -64,7 +65,7 @@ When loading a codebase project, check if the project's actual repo has a `CLAUD
 
 - If one exists and hasn't been assimilated yet, read it and offer to import its contents into the project's memory in claude-md (rules go to `rules/`, known issues to `lies/` or `short-term-mem/`, architecture notes to `long-term-mem/` or `knowledgebase/`).
 - The project repo's CLAUDE.md can stay in place (other contributors may depend on it), but claude-md's project memory becomes the authoritative source for this user.
-- Track what's been assimilated in the project's `short-term-mem/` or `long-term-mem/` so it doesn't re-trigger.
+- Track what's been assimilated by creating `short-term-mem/assimilation-tracking.md` in the project's memory. Record what was imported, where it went, and the date. This prevents re-triggering on future sessions.
 
 ### 7. Lazy-load the rest
 
