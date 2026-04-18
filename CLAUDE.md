@@ -40,8 +40,13 @@ Always-loaded in full:
 Read `long-term-mem/index.md`. If First-Run Initialization has not been completed (checklist unchecked or marked incomplete):
 
 - **Stop and run the First-Run Interview** before proceeding. The rest of the startup sequence depends on Core memory being seeded.
-- Interview the user across: user profile, preferences, hardware and environment, people and collaborators, priv location (see `plan.md` for the full flow).
-- Draft each `long-term-mem/<topic>.md` and present for approval before writing.
+- **Conversational, one category at a time.** Do not dump all questions at once. Walk through each topic as its own mini-conversation: ask about the topic, let the user respond, ask follow-ups if needed, then draft the `long-term-mem/<topic>.md` entry and present it for approval before moving to the next topic. The categories in order:
+  1. **User profile** — role, background, expertise, preferred communication style.
+  2. **Preferences** — coding style, tools, languages, workflow habits, what to avoid.
+  3. **Hardware and environment** — machines, OSes, shell, dev setup per machine.
+  4. **People and collaborators** — teams, key contacts, role relationships.
+  5. **Priv location** — the per-OS `priv/` path (per Core Rule #6). Can defer if not yet needed.
+- After each topic is approved and written, move to the next. Commit after all topics are done (or in small batches).
 - Mark complete in `long-term-mem/index.md` so it doesn't re-trigger.
 - Once first-run is done (or was already done), continue to step 5.
 

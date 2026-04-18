@@ -535,17 +535,17 @@ On day 1 the system is empty — every folder has a `CLAUDE.md` and an `index.md
 The flow, driven by Core CLAUDE.md:
 
 1. Claude detects that Core `long-term-mem/index.md` is empty or nearly empty and triggers the first-run flow.
-2. Claude interviews the user across the core topics:
+2. **Conversational interview, one category at a time.** Do not present all questions at once — walk through each topic as its own mini-conversation. For each category: ask about the topic, let the user respond, ask follow-ups if anything is unclear or interesting, then draft the `long-term-mem/<topic>.md` entry and present it for approval before moving on. The categories in order:
    - **User profile** — role, background, expertise, preferred communication style (may already be partially seeded from the Initial Interview).
    - **Preferences** — coding style, tools, languages, workflow habits, what to avoid.
    - **Hardware and environment** — machines, OSes, shell, dev setup per machine.
    - **People and collaborators** — teams, key contacts, role relationships.
-   - **Priv location** — the per-OS `priv/` path (per Core Rule #6).
-3. For each topic, Claude drafts a `long-term-mem/<topic>.md` entry and presents it for user approval before writing (Core Rule #4).
+   - **Priv location** — the per-OS `priv/` path (per Core Rule #6). Can be deferred if secrets aren't needed yet.
+3. For each topic, Claude drafts a `long-term-mem/<topic>.md` entry and presents it for user approval before writing (Core Rule #4). Only move to the next topic after the current one is approved.
 4. After approval, Claude writes the files, updates `index.md`, and commits them as one initialization commit (or a few topical commits).
 5. First-run flow is marked complete by a note in `long-term-mem/index.md` so it doesn't re-trigger.
 
-The interview is not exhaustive. It's enough to get Core long-term-mem past the "empty" threshold. Everything else accumulates organically via the graduation flow.
+The interview is not exhaustive — it's enough to get Core long-term-mem past the "empty" threshold. The conversational approach produces better results than a questionnaire because the user can give detailed answers without being overwhelmed, and Claude can ask targeted follow-ups within each category. Everything else accumulates organically via the graduation flow.
 
 ---
 
