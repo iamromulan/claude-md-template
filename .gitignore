@@ -1,0 +1,20 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Secrets (defense in depth — secrets should never reach this repo per Core Rule #6)
+.env
+*.key
+*.pem
+*.p12
+credentials.*
+secrets.*
