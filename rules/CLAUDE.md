@@ -16,6 +16,10 @@ These are absolute. Project rules **cannot** override them. They are loaded into
 
    Memory is git-synced and must be treated as if it could be made public tomorrow. Memory may contain *pointers* to secrets (relative paths inside priv, filenames, short descriptions of where a secret lives) but **never the secret values themselves**. When a session needs a secret: resolve the priv path for the current OS, read the specific file at runtime, use it, and never write it back into memory, logs, or commit messages.
 
+7. **Never let research go to waste.** When online research or deep investigation is performed, the findings must be captured in the memory system (typically `knowledgebase/`) before moving on. Include references to where the information came from (URLs, repo paths, file names, forum posts) so the source can be revisited if needed. Research that stays only in conversation context is lost at compaction.
+
+8. **Auto-resolve credentials from priv.** When an operation needs a credential that lives in priv — a `sudo` password, an SSH/SCP password, an API token — resolve it for the current OS (per `long-term-mem/priv-locations.md`) and use it automatically instead of asking the user or claiming you can't (`sudo -S`; `sshpass` for SSH/SCP). If a needed credential isn't in priv yet, ask the user once, then store it in priv so future sessions read it automatically. If priv doesn't exist on this machine, offer options and let the user choose: import it from another of their machines (e.g. over a private network / tailnet if set up — user directs the method), copy it over manually, or start a fresh priv and fill it on demand — never via git. Never expose a credential value in output, logs, memory, or commit messages — Core Rule #6 applies fully. See `rules/credentials-via-priv.md`.
+
 ---
 
 Additional rule categories (coding style, communication, git workflow, etc.) live as separate `<category>.md` files in this folder as they accumulate. Glob-scoped rules (e.g. "applies when editing `*.rs`") are written informally in prose — no frontmatter required.
