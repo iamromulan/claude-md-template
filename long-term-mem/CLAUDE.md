@@ -8,10 +8,11 @@ Promoted, stable facts. Things that survived the short-term filter via the Gradu
 
 - `user-profile.md` — role, background, expertise, communication preferences
 - `preferences.md` — coding style, tool choices, workflow habits, things to avoid
-- `hardware-and-environment.md` — machines, OSes, shell, dev setup per machine
+- `hardware-and-environment.md` — cross-machine dev philosophy, networking, equipment inventory (per-machine profiles live in the top-level `machines/` folder)
 - `people-and-collaborators.md` — teams, key contacts, relationships
 - `workflow.md` — recurring workflows, routines
-- `priv-locations.md` — per-OS path to the priv folder (per Core Rule #6); created when secrets first become relevant
+
+(Priv locations and per-machine details now live in the top-level `machines/` folder.)
 
 ## Entry format
 

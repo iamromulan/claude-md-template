@@ -36,7 +36,14 @@ Always-loaded in full:
 - `@lies/CLAUDE.md` and every entry file in `lies/`
 - `@truths/CLAUDE.md` and every entry file in `truths/`
 
-### 4. First-Run check
+### 4. Device check & onboarding
+
+Identify the current machine and load/create its profile in `machines/` (see `machines/CLAUDE.md`).
+
+- **Known machine** → load `machines/<name>.md` into the session (priv path, available skills, quirks), so Claude starts already knowing this box.
+- **New / unrecognized machine** → gather its basics — hostname, OS + version, arch, CPU/RAM/storage, shell, toolchain vs the recommended baseline, cloned repos + `path.md` fit, tailnet status, **priv path + presence**, Claude skills/MCP — **using the OS-appropriate method** (Linux/macOS shell, Windows PowerShell/`systeminfo`, Termux, etc.; don't assume `uname`). Check `gh` auth and help set it up **first** if it's missing (the repo can't be administered without it). Ask the user **"anything else I should know about this machine?"**, then create `machines/<name>.md` (user confirms), add it to `machines/index.md`, and commit. If priv is absent, run the Core Rule #8 bootstrap.
+
+### 5. First-Run check
 
 Read `long-term-mem/index.md`. If First-Run Initialization has not been completed (checklist unchecked or marked incomplete):
 
@@ -44,14 +51,14 @@ Read `long-term-mem/index.md`. If First-Run Initialization has not been complete
 - **Conversational, one category at a time.** Do not dump all questions at once. Walk through each topic as its own mini-conversation: ask about the topic, let the user respond, ask follow-ups if needed, then draft the `long-term-mem/<topic>.md` entry and present it for approval before moving to the next topic. The categories in order:
   1. **User profile** — role, background, expertise, preferred communication style.
   2. **Preferences** — coding style, tools, languages, workflow habits, what to avoid.
-  3. **Hardware and environment** — machines, OSes, shell, dev setup per machine.
+  3. **Hardware and environment** — cross-machine dev philosophy + inventory (per-machine details are captured by the Device check into `machines/`).
   4. **People and collaborators** — teams, key contacts, role relationships.
-  5. **Priv location** — the per-OS `priv/` path (per Core Rule #6). Can defer if not yet needed.
+  5. **Priv location** — captured per-machine by the Device check / Rule #8 bootstrap (per Core Rule #6). Can defer if not yet needed.
 - After each topic is approved and written, move to the next. Commit after all topics are done (or in small batches).
 - Mark complete in `long-term-mem/index.md` so it doesn't re-trigger.
-- Once first-run is done (or was already done), continue to step 5.
+- Once first-run is done (or was already done), continue to step 6.
 
-### 5. Active project selection + context reload
+### 6. Active project selection + context reload
 
 - Read `short-term-mem/active-project.md` to find the last-active project.
   - **First-run exception:** if the file does not exist, this is a fresh install. Ask the user which project to activate from `projects/`. Create `short-term-mem/active-project.md` with their choice, machine name, and today's date. Commit it immediately.
@@ -59,7 +66,7 @@ Read `long-term-mem/index.md`. If First-Run Initialization has not been complete
 - Once confirmed, load the active project's `CLAUDE.md` + its enforcement layer the same way.
 - **Context reload:** read Core `short-term-mem/index.md` and the active project's `short-term-mem/index.md`. Summarize any recent entries to the user so they know where things left off. This is the continuity bridge between sessions.
 
-### 6. Codebase CLAUDE.md assimilation (codebase projects only)
+### 7. Codebase CLAUDE.md assimilation (codebase projects only)
 
 When loading a codebase project, check if the project's actual repo has a `CLAUDE.md` at its root:
 
@@ -67,7 +74,7 @@ When loading a codebase project, check if the project's actual repo has a `CLAUD
 - The project repo's CLAUDE.md can stay in place (other contributors may depend on it), but claude-md's project memory becomes the authoritative source for this user.
 - Track what's been assimilated by creating `short-term-mem/assimilation-tracking.md` in the project's memory. Record what was imported, where it went, and the date. This prevents re-triggering on future sessions.
 
-### 7. Lazy-load the rest
+### 8. Lazy-load the rest
 
 Everything inside `long-term-mem/`, `short-term-mem/` (beyond what was loaded for context reload), and `knowledgebase/` is **lazy-loaded** via each folder's `index.md`. Only open individual files when the conversation actually calls for them.
 
@@ -173,7 +180,7 @@ See `knowledgebase/git-lfs.md` for the LFS install/track/diagnose reference when
 
 Never write secret values into memory. Ever. Memory is git-synced and must be treated as if it could be made public tomorrow.
 
-- The per-OS location of the priv folder is recorded in a Core `long-term-mem/priv-locations.md` entry (same `OS:PATH` format as `path.md`). This entry is **not** created until the user first needs a secret — it will be seeded during First-Run Initialization or on demand.
+- The priv location for each machine is recorded in that machine's profile in `machines/` (see `machines/CLAUDE.md`). It's captured during the Device-check onboarding (step 4) or the Rule #8 bootstrap when priv is first created or imported.
 - Memory may contain *pointers* to secrets (relative paths inside priv, filenames, descriptions). Never the values themselves.
 - When a session needs a secret, resolve the priv path for the current OS, read the specific file at runtime, and never write the value back into memory, logs, or commit messages.
 

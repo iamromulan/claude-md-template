@@ -1,6 +1,6 @@
 # Core Rule #8 — Auto-resolve credentials from priv
 
-When an operation requires a credential, check whether it's available in the priv folder for the current OS (per `long-term-mem/priv-locations.md`). If so, resolve and use it automatically rather than asking the user to act or refusing.
+When an operation requires a credential, check whether it's available in the priv folder for the current machine (per its profile in `machines/`). If so, resolve and use it automatically rather than asking the user to act or refusing.
 
 **Covered credentials (non-exhaustive):**
 - **sudo password** → `echo <pw> | sudo -S <command>` (read pw from priv at runtime).
@@ -18,7 +18,7 @@ When an operation requires a credential, check whether it's available in the pri
   1. **Import from another of the user's machines** — if a transfer path exists (e.g. over a private network / tailnet via scp/rsync, if set up); let the user direct the method.
   2. **Copy the priv folder over manually** (user does it — USB, their own scp, whatever).
   3. **Start fresh** — build a new priv from scratch, populated on demand via one-time capture.
-- Never move priv through the repo, whatever method is chosen. Add/confirm the `long-term-mem/priv-locations.md` entry for this OS once priv exists.
+- Never move priv through the repo, whatever method is chosen. Record the priv path in the machine's profile in `machines/` once priv exists.
 
 **Behavioral intent:** never stall, panic, or say "I can't do that" when a credential is in priv (or can be captured/imported). Resolve it and carry out the authorized action on the user's own infrastructure.
 
