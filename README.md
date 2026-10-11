@@ -10,7 +10,7 @@ This template lets you build a personal memory system that replaces Claude Code'
 
 ## Setup — from zero to running
 
-You need: a GitHub account, git installed, and Claude Code installed.
+You need: a GitHub account, git and the GitHub CLI (`gh`) installed, and Claude Code installed. (`git` + `gh` are the essentials — a session administers the repo through them.)
 
 ### 1. Create your private memory repo
 
@@ -86,9 +86,10 @@ Say this at the start of every session. Claude will:
 1. `git pull` and clean up uncommitted/unpushed changes from previous sessions
 2. Audit Claude Code's built-in auto-memory for stray entries and import them
 3. Load your enforcement layer (rules, lies, truths)
-4. Ask which project to continue or switch to
-5. Reload recent context so you know where things left off
-6. For codebase projects: check for repo CLAUDE.md files to assimilate
+4. **Device check** — identify this machine; if it's new, gather its basics (and help set up `gh` if needed), ask if there's anything else to know, and save a profile in `machines/`
+5. Ask which project to continue or switch to
+6. Reload recent context so you know where things left off
+7. For codebase projects: check for repo CLAUDE.md files to assimilate
 
 ### Switching projects
 
@@ -136,6 +137,7 @@ Both types share the same folder scaffold.
 ├── short-term-mem/        <- Session scratchpad, research dropbox (lazy-loaded)
 ├── long-term-mem/         <- Promoted stable facts (lazy-loaded)
 ├── knowledgebase/         <- Reference material, personal wiki (lazy-loaded)
+├── machines/              <- One profile per machine you run Claude from (Core-only)
 └── projects/
     └── <project>/         <- Each project has the same 6 folders
         ├── CLAUDE.md
@@ -174,13 +176,16 @@ Promotion requires explicit agreement between you and Claude. Nothing auto-promo
 4. User and Claude must agree before amending memory
 5. A project must always be selected
 6. Secrets never live in this repo (use the priv folder)
+7. Never let research go to waste — capture findings in memory, with sources
+8. Credentials (sudo, SSH, …) auto-resolved from the priv folder — values never exposed
 
 ## Adding a new machine
 
-1. Clone your private memory repo
+1. Clone your private memory repo (`git` + `gh` are the essentials — a session administers the repo through them)
 2. Create `~/.claude/CLAUDE.md` with the global pointer (see setup step 4)
-3. Open Claude Code and say "Begin new session" — it will ask for any missing OS-specific paths
-4. Claude will detect and import any existing local auto-memory
+3. Open Claude Code and say "Begin new session". The **device check** recognizes the new machine, checks `gh` auth (and helps you set it up if needed), asks if there's anything else it should know, and saves a profile for it in `machines/`
+4. If you keep secrets in a priv folder, Claude offers to import it from another machine, copy it over, or start fresh (never through git)
+5. Claude also detects and imports any existing local auto-memory
 
 ## Tips
 

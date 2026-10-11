@@ -42,6 +42,8 @@ Each profile's Toolchain section records present/missing against this baseline; 
 
 ## Profile format
 
+**Filename = hostname.** Name each profile `machines/<hostname>.md` — the device check looks it up by the machine's hostname, so they should match most of the time. (If a box's hostname isn't known yet, a descriptive placeholder name is fine temporarily — rename to the real hostname once captured.) A profile's content comes from **two sources**: details gathered **from the machine itself** (OS, specs, toolchain, tailnet… via the OS-appropriate method) and details gathered **from the user** ("anything else I should know about this machine?").
+
 `machines/<hostname>.md`, with frontmatter (`machine`, `os`, `arch`, `added`, `last_confirmed`) and these sections:
 
 - **Hardware** — model, CPU, RAM, storage
