@@ -25,7 +25,7 @@ Or use the GitHub web UI to create a private repo, then clone it.
 
 Copy everything from this template repo into your new private repo. The key files:
 
-- `plan.md` — the full design document and Initial Interview
+- `template_plan.md` — the full design document and Initial Interview (Claude copies it to your personalized `plan.md` during setup)
 - `CLAUDE.md` — the root router (operational instructions for Claude)
 - All folder scaffolding (`rules/`, `lies/`, `truths/`, `short-term-mem/`, `long-term-mem/`, `knowledgebase/`, `projects/`)
 
@@ -46,7 +46,7 @@ git push
 
 Open Claude Code inside your repo and say:
 
-> *"Read `plan.md` and run the Initial Interview."*
+> *"Read `template_plan.md` and run the Initial Interview."*
 
 Claude will ask you about:
 - Your identity and communication preferences
@@ -55,7 +55,7 @@ Claude will ask you about:
 - Where you keep secrets/credentials
 - Any seed rules
 
-This takes ~10 minutes. Claude builds the full skeleton from your answers.
+This takes ~10 minutes. Claude builds the full skeleton from your answers. As part of this, it copies `template_plan.md` → your personalized `plan.md` (which becomes the fidelity baseline for your instance).
 
 ### 4. Create the global pointer
 
@@ -130,7 +130,7 @@ Both types share the same folder scaffold.
 ```
 ./
 ├── CLAUDE.md              <- Root router (session-start protocol, workflow rules)
-├── plan.md                <- Design rationale, Initial Interview, architecture
+├── template_plan.md       <- Design rationale + Initial Interview (copied to plan.md on setup)
 ├── rules/                 <- Core rules (always loaded, absolute)
 ├── lies/                  <- Proven dead ends (always loaded)
 ├── truths/                <- User-asserted ground truth (always loaded)
@@ -198,7 +198,7 @@ Promotion requires explicit agreement between you and Claude. Nothing auto-promo
 
 ## Design rationale
 
-See `plan.md` for the full architecture, prior art, trade-offs, graduation flow, curation model, and honest risks.
+See `template_plan.md` (it becomes your `plan.md` after setup) for the full architecture, prior art, trade-offs, graduation flow, curation model, and honest risks.
 
 ## Credits
 
