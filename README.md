@@ -59,19 +59,26 @@ This takes ~10 minutes. Claude builds the full skeleton from your answers. As pa
 
 ### 4. Create the global pointer
 
-Create `~/.claude/CLAUDE.md` so Claude finds your memory system from anywhere:
+Create `~/.claude/CLAUDE.md` so Claude finds your memory system from anywhere. It's a small **dispatcher** — a list of the claude-md systems on this machine — so you can later add a second one (e.g. a team system) without breaking anything:
 
 ```markdown
-# Global pointer
+# Claude Code — Global Pointer (claude-md dispatcher)
 
-This user uses the **claude-md universal memory system**.
+This machine has one or more **claude-md memory systems**. Each session uses exactly ONE.
 
-**Before doing anything else in any session:**
+| System | Repo path | Notes |
+|---|---|---|
+| claude-md (personal) — **default** | /path/to/your/claude-md | |
 
-1. `cd /path/to/your/claude-md`
-2. Read `./CLAUDE.md` and follow its session-start ritual
-3. All memory reads and writes go through that repo.
+**Which system:**
+1. If the session's starting directory is inside one of the repo paths above, follow THAT system's `CLAUDE.md` startup protocol and ignore the others.
+2. Otherwise `cd` to the **default** system and follow its `CLAUDE.md`.
+3. If the user names a system, switch to it. Unsure → ask.
+
+**Never mix systems:** memory goes only to the session's system; moving content between systems happens only when the user asks, under the destination's rules.
 ```
+
+**Already have a pointer** (an older single-system one, or another claude-md system such as a team repo)? Don't overwrite it — convert it to this format and add a row. Details: `knowledgebase/runbooks/multiple-claude-md-systems.md`.
 
 ### 5. You're live
 
@@ -182,7 +189,7 @@ Promotion requires explicit agreement between you and Claude. Nothing auto-promo
 ## Adding a new machine
 
 1. Clone your private memory repo (`git` + `gh` are the essentials — a session administers the repo through them)
-2. Create `~/.claude/CLAUDE.md` with the global pointer (see setup step 4)
+2. Create `~/.claude/CLAUDE.md` with the global pointer (see setup step 4) — or add a row to it if the machine already has one
 3. Open Claude Code and say "Begin new session". The **device check** recognizes the new machine, checks `gh` auth (and helps you set it up if needed), asks if there's anything else it should know, and saves a profile for it in `machines/`
 4. If you keep secrets in a priv folder, Claude offers to import it from another machine, copy it over, or start fresh (never through git)
 5. Claude also detects and imports any existing local auto-memory

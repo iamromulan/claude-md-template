@@ -4,6 +4,8 @@ This repo is a universal Claude Code memory system. It replaces the traditional 
 
 For the full design rationale read `plan.md`. This file is the operational entry point.
 
+**Coexisting systems:** a machine may run several claude-md systems (e.g. a personal one + a shared team one like `claude-md-fenixstar`). The global `~/.claude/CLAUDE.md` is a **dispatcher** listing them; each session uses exactly **one**, and never writes into another unless the user explicitly asks to move content (the destination's rules apply). See [knowledgebase/runbooks/multiple-claude-md-systems.md](knowledgebase/runbooks/multiple-claude-md-systems.md).
+
 ---
 
 ## "Begin new session" — the startup protocol
@@ -26,6 +28,7 @@ Check for stray entries in Claude Code's built-in auto-memory (`~/.claude/projec
 - If found, show them to the user. These are memories Claude Code wrote outside the claude-md system.
 - **Also check `MEMORY.md` files** in each project's auto-memory directory — these are auto-memory index files that accumulate content over time and can contain valuable learnings worth importing (e.g. key learnings, bug root causes, project context).
 - Offer to import useful content into the appropriate claude-md location: stray files usually go to `short-term-mem/` for review first; `MEMORY.md` content that's proven reference material can go directly to `knowledgebase/`.
+- **Skip auto-memory directories that belong to another claude-md system** registered in the global pointer (exact encoded-path match — `…-claude-md` ≠ `…-claude-md-fenixstar`); that system audits its own. See the multiple-systems runbook.
 - After import, remove the stray entries — keep only the pointer that says "defer to claude-md."
 - On a brand-new machine where no pointer exists yet, create one.
 
@@ -41,7 +44,7 @@ Always-loaded in full:
 Identify the current machine and load/create its profile in `machines/` (see `machines/CLAUDE.md`).
 
 - **Known machine** → load `machines/<name>.md` into the session (priv path, available skills, quirks), so Claude starts already knowing this box.
-- **New / unrecognized machine** → gather its basics — hostname, OS + version, arch, CPU/RAM/storage, shell, toolchain vs the recommended baseline, cloned repos + `path.md` fit, tailnet status, **priv path + presence**, Claude skills/MCP — **using the OS-appropriate method** (Linux/macOS shell, Windows PowerShell/`systeminfo`, Termux, etc.; don't assume `uname`). Check `gh` auth and help set it up **first** if it's missing (the repo can't be administered without it). Ask the user **"anything else I should know about this machine?"**, then create `machines/<name>.md` (user confirms), add it to `machines/index.md`, and commit. If priv is absent, run the Core Rule #8 bootstrap.
+- **New / unrecognized machine** → gather its basics — hostname, OS + version, arch, CPU/RAM/storage, shell, toolchain vs the recommended baseline, cloned repos + `path.md` fit, tailnet status, **priv path + presence**, Claude skills/MCP — **using the OS-appropriate method** (Linux/macOS shell, Windows PowerShell/`systeminfo`, Termux, etc.; don't assume `uname`). Check `gh` auth and help set it up **first** if it's missing (the repo can't be administered without it). Create or update the **global pointer** (`~/.claude/CLAUDE.md`): if one exists — including another claude-md system's — **merge this system in as a dispatcher row, never overwrite** (see the multiple-systems runbook). Ask the user **"anything else I should know about this machine?"**, then create `machines/<name>.md` (user confirms), add it to `machines/index.md`, and commit. If priv is absent, run the Core Rule #8 bootstrap.
 
 ### 5. First-Run check
 
