@@ -122,6 +122,7 @@ On every user/assistant exchange, scan for **memory-worthy moments**: correction
 
 - If found, write a single entry to the appropriate folder.
 - If not found — normal on most turns — do nothing. Silence is fine. **Do not invent reasons to write.**
+- **Cross-linking:** when writing or editing a memory entry, add standard markdown links (`[text](relative-path.md)`) to related entries. When an existing entry is referenced in conversation, check if it links to the other entries involved — add links if missing. Keep links natural (inline where the reference makes sense), not bolted-on link sections.
 - Tier 1 writes are **batched**: files are written immediately, but committed together at task-end, session-end, or when the user says "save."
 
 ---
@@ -132,11 +133,12 @@ When the user says **"curate"** (alone, or paired with "compact"), run a full cu
 
 1. Read the on-demand folders end-to-end — `long-term-mem/`, `short-term-mem/`, `knowledgebase/` for both Core and the active project. Enforcement layers are already in context from bootstrap; cross-reference them, don't re-read.
 2. **Cross-project scan:** read the `index.md` of every other project's `long-term-mem/` and `short-term-mem/`. Look for entries that have outgrown their project scope — facts that apply universally belong in Core, not buried in one project. Memory-only projects like `life` especially tend to generate entries that are really Core material (personal context, goals, people, preferences). If an entry serves all projects, propose graduating it to Core memory.
-3. Identify: new entries warranted, contradictions with existing memory, short-term entries ready to graduate (within the active project and up to Core), stale long-term entries, knowledgebase gaps, dead ends to add to `lies/`, project entries that belong in Core.
-4. Present a **punch list** to the user.
-5. Wait for explicit per-change approval (Core Rules #1 and #4).
-6. Apply approved writes. Commit each meaningful change individually.
-7. If the user also said "compact", run `/compact` **after** curation, never before. Compaction is lossy; curation has to finish first.
+3. **Cross-link pass:** scan all content files for references to other memory entries (related topics, shared context, upstream/downstream relationships). Add standard markdown links (`[text](relative-path.md)`) so the graph of connections is navigable — both for Claude (faster context discovery) and for the user (Obsidian graph view, manual browsing). Don't over-link; connect entries that genuinely inform each other.
+4. Identify: new entries warranted, contradictions with existing memory, short-term entries ready to graduate (within the active project and up to Core), stale long-term entries, knowledgebase gaps, dead ends to add to `lies/`, project entries that belong in Core, missing cross-links.
+5. Present a **punch list** to the user.
+6. Wait for explicit per-change approval (Core Rules #1 and #4).
+7. Apply approved writes. Commit each meaningful change individually.
+8. If the user also said "compact", run `/compact` **after** curation, never before. Compaction is lossy; curation has to finish first.
 
 **Curate timing suggestion:** when context feels ~70% full, or at a logical task boundary, proactively suggest "curate and compact" to the user. Don't wait for auto-compact — the curator needs headroom to do its work.
 
